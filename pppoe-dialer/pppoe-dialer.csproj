@@ -39,6 +39,9 @@
   <PropertyGroup>
     <ApplicationIcon>favcon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>pppoe_dialer.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotRas, Version=1.3.5166.33435, Culture=neutral, PublicKeyToken=b378f04384b7892a, processorArchitecture=MSIL">
       <HintPath>..\packages\DotRas.for.Win8.1.3.0\lib\net40\DotRas.dll</HintPath>
@@ -56,8 +59,14 @@
       <HintPath>..\packages\MaterialDesignThemes.1.5.0.523\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -80,6 +89,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\ConnectionException.cs" />
+    <Compile Include="Model\DialerNotify.cs" />
+    <Compile Include="Model\PPoEDiale.cs" />
+    <Compile Include="ViewModel\AccountGoverment.cs" />
+    <Compile Include="ViewModel\NotifyProperty.cs" />
+    <Compile Include="ViewModel\PPoPModel.cs" />
+    <Compile Include="View\PPoPDiale.xaml.cs">
+      <DependentUpon>PPoPDiale.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,6 +111,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PPoPDiale.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -117,6 +140,21 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\bz20pyd" />
+    <None Include="Resources\DotRas0dll" />
+    <None Include="Resources\MahApps0Metro0dll" />
+    <None Include="Resources\MaterialDesignColors0dll" />
+    <None Include="Resources\MaterialDesignThemes0Wpf0dll" />
+    <None Include="Resources\Newtonsoft0Json0dll" />
+    <None Include="Resources\pppoe0exe" />
+    <None Include="Resources\pyexpat0pyd" />
+    <None Include="Resources\python270dll" />
+    <None Include="Resources\select0pyd" />
+    <None Include="Resources\System0Windows0Interactivity0dll" />
+    <None Include="Resources\unicodedata0pyd" />
+    <None Include="Resources\_hashlib0pyd" />
+    <None Include="Resources\_socket0pyd" />
+    <None Include="Resources\_ssl0pyd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -126,6 +164,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MahApps.Metro.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\packages\Fody.1.28.3\build\Fody.targets')" />

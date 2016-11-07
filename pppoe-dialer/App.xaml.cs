@@ -13,5 +13,9 @@ namespace pppoe_dialer
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            
+        }
     }
 }

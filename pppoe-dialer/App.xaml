@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:pppoe_dialer"
-             StartupUri="MainWindow.xaml">
+             xmlns:view="clr-namespace:pppoe_dialer.View"
+             StartupUri="View/PPoPDiale.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

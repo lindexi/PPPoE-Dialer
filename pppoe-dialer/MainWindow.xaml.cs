@@ -17,6 +17,27 @@ namespace pppoe_dialer
             hangup.IsEnabled = false;
         }
 
+        private void ReleaseResource()
+        {
+
+        }
+
+        /// <summary>
+        /// 获取用户账号密码
+        /// </summary>
+        private void ReadUseNameKey()
+        {
+
+        }
+
+        /// <summary>
+        /// 保存用户账号密码
+        /// </summary>
+        private void SaveUseNameKey()
+        {
+
+        }
+
         public void CreateConnect(string ConnectName)
         {
             RasDialer dialer = new RasDialer();
