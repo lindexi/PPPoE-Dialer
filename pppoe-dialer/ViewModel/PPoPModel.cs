@@ -19,8 +19,8 @@ namespace pppoe_dialer.ViewModel
             DialeEnable = true;
             HangupEnable = false;
 
-            Model.InternetCheck.IsConnectInternet();
-            Model.InternetCheck.PingIpOrDomainName();
+            //Model.InternetCheck.IsConnectInternet();
+            //Model.InternetCheck.PingIpOrDomainName();
         }
 
         public bool DialeEnable
@@ -276,6 +276,7 @@ namespace pppoe_dialer.ViewModel
 
             _ppoeDiale.OnhangupSuccess = () =>
             {
+                HangupSuccess();
                 PPoEdiale();
             };
 
@@ -306,7 +307,13 @@ namespace pppoe_dialer.ViewModel
             {
                 Process[] process = Process.GetProcesses();
 
-                process.Where(temp => temp.ProcessName == "pppoe").First().Kill();
+                foreach (var temp in process)//.Where(temp => temp.ProcessName == "pppoe"))
+                {
+                    if (temp.ProcessName == "pppoe")
+                    {
+                        temp.Kill();
+                    }
+                }
             }
             catch
             {
