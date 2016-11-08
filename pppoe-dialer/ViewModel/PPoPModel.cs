@@ -18,6 +18,9 @@ namespace pppoe_dialer.ViewModel
 
             DialeEnable = true;
             HangupEnable = false;
+
+            Model.InternetCheck.IsConnectInternet();
+            Model.InternetCheck.PingIpOrDomainName();
         }
 
         public bool DialeEnable
@@ -68,7 +71,7 @@ namespace pppoe_dialer.ViewModel
 
         public void PPoEdiale()
         {
-            if(string.IsNullOrEmpty(Account.UserName) || string.IsNullOrEmpty(Account.Key))
+            if (string.IsNullOrEmpty(Account.UserName) || string.IsNullOrEmpty(Account.Key))
             {
                 Notify("请输入账号密码", _errorColor);
                 return;
@@ -100,19 +103,22 @@ namespace pppoe_dialer.ViewModel
         private Model.PPoEDiale _ppoeDiale;
         private Model.DialerNotify _dialerNotify;
 
+        private void ConnectDelegate()
+        {
+            _ppoeDiale.OnDialeExcep = DialeExcep;
+            _ppoeDiale.OnDialeFailure = DialeFailure;
+            _ppoeDiale.OnDialeSuccess = DialeSuccess;
+            _ppoeDiale.OnhangupFilure = HangupFilure;
+            _ppoeDiale.OnhangupSuccess = HangupSuccess;
+            OnConnectFailure = ConnectFailure;
+        }
+
         private void CreatConnect()
         {
             string connectName = Account.ConnectName;
-            _ppoeDiale = new Model.PPoEDiale()
-            {
-                OnDialeExcep = DialeExcep,
-                OnDialeFailure = DialeFailure,
-                OnDialeSuccess = DialeSuccess,
-                OnhangupFilure = HangupFilure,
-                OnhangupSuccess = HangupSuccess
-            };
+            _ppoeDiale = new Model.PPoEDiale();
 
-            OnConnectFailure = ConnectFailure;
+            ConnectDelegate();
 
 
             try
@@ -223,6 +229,58 @@ namespace pppoe_dialer.ViewModel
                 p.WaitForExit();//等待程序执行完退出进程
                 p.Close();
             }).Start();
+
+            _internetCheck = new Model.InternetCheck()
+            {
+                OnNotConnected = ConnectFilure
+            };
+
+        }
+
+        private Model.InternetCheck _internetCheck;
+
+        private bool _connectFilure = false;
+        private object _connectO = new object();
+
+        private void ConnectFilure()
+        {
+            lock (_connectO)
+            {
+                if (_connectFilure)
+                {
+                    return;
+                }
+                _connectFilure = true;
+            }
+
+            string str = "网络连接失败，正在重新连接";
+            Notify(str, _errorColor);
+
+            _internetCheck.Dispose();
+
+            _ppoeDiale.OnDialeExcep = DialeExcep;
+
+            _ppoeDiale.OnDialeFailure = DialeFailure;
+
+            _ppoeDiale.OnDialeSuccess = (s) =>
+            {
+                DialeSuccess(s);
+                ConnectDelegate();
+                _connectFilure = false;
+            };
+
+            _ppoeDiale.OnhangupFilure = () =>
+            {
+                new Task(() => { Hangup(); }).Start();
+            };
+
+            _ppoeDiale.OnhangupSuccess = () =>
+            {
+                PPoEdiale();
+            };
+
+            Hangup();
+
         }
 
         private void HangupFilure()

@@ -92,6 +92,7 @@
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\ConnectionException.cs" />
     <Compile Include="Model\DialerNotify.cs" />
+    <Compile Include="Model\InternetCheck.cs" />
     <Compile Include="Model\PPoEDiale.cs" />
     <Compile Include="ViewModel\AccountGoverment.cs" />
     <Compile Include="ViewModel\NotifyProperty.cs" />

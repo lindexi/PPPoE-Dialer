@@ -37,14 +37,14 @@ namespace pppoe_dialer.View
 
         private void Pallets()
         {
-            this.notifyIcon = new NotifyIcon();
-            this.notifyIcon.BalloonTipText = "最小化到托盘";
-            this.notifyIcon.ShowBalloonTip(2000);
-            this.notifyIcon.Text = "PPoE";
-            this.notifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
-            this.notifyIcon.Visible = true;
+            notifyIcon = new NotifyIcon();
+            notifyIcon.BalloonTipText = "最小化到托盘";
+            notifyIcon.ShowBalloonTip(2000);
+            notifyIcon.Text = "PPoE";
+            notifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+            notifyIcon.Visible = true;
 
-            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler((o, e) =>
+            notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler((o, e) =>
             {
                 if (e.Button == MouseButtons.Left)
                 {
