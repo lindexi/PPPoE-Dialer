@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="PPoPDiale" Height="300" Width="300"
-      StateChanged="Minimized">
+      StateChanged="Minimized" Icon="/pppoe-dialer;component/favcon.ico">
 
     <Grid>
         <Grid>
