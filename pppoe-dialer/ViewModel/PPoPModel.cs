@@ -300,6 +300,8 @@ namespace pppoe_dialer.ViewModel
             DialeEnable = true;
             HangupEnable = false;
 
+            _internetCheck.Dispose();
+
             try
             {
                 Process[] process = Process.GetProcesses();
